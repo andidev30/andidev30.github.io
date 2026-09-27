@@ -1,199 +1,371 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andi — Fullstack Developer</title>
+<meta name="description" content="Andi is a freelance fullstack developer who builds AI agents, LLM-powered apps and cloud backends with TypeScript, Go and Python." />
+<meta property="og:title" content="Andi — Fullstack Developer" />
+<meta property="og:description" content="Freelance fullstack developer building AI agents that ship." />
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/65272853?v=4" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B1F3B'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='700' font-size='34' text-anchor='middle' fill='%23EEF2F0'%3Ea%3C/text%3E%3Ccircle cx='48' cy='18' r='5' fill='%233D5AFE'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --fog: #EEF2F0;
+    --paper: #F8FAF9;
+    --ink: #1B1F3B;
+    --muted: #5B6178;
+    --line: #CBD3D0;
+    --signal: #3D5AFE;
+    --signal-soft: #DDE3FF;
+    --marker: #FFB000;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Schibsted Grotesk", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fog: #13162B;
+      --paper: #1A1E38;
+      --ink: #E9EDF5;
+      --muted: #9AA1BC;
+      --line: #2D3356;
+      --signal: #7C93FF;
+      --signal-soft: #262E5E;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--fog);
+    color: var(--ink);
+    font: 400 1.0625rem/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+  /* nav */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+  .mark { font: 800 1.35rem/1 var(--display); text-decoration: none; letter-spacing: -0.02em; }
+  .mark span { color: var(--signal); }
+  nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
+  nav ul a { text-decoration: none; color: var(--muted); font-weight: 500; }
+  nav ul a:hover { color: var(--ink); }
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; padding: 48px 0 96px; }
+  .hero h1 {
+    font: 800 clamp(3.5rem, 10vw, 7.5rem)/0.9 var(--display);
+    letter-spacing: -0.045em;
+    margin: 0 0 28px;
+  }
+  .hero h1 .dot { color: var(--signal); }
+  .lede { font-size: 1.3rem; line-height: 1.5; max-width: 30ch; margin: 0 0 28px; }
+  .facts { list-style: none; padding: 0; margin: 0 0 36px; color: var(--muted); }
+  .facts li { padding: 6px 0; }
+  .facts strong { color: var(--ink); font-weight: 600; }
+  .avail { display: inline-flex; align-items: center; gap: 10px; }
+  .avail::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #1FB36B; box-shadow: 0 0 0 4px color-mix(in srgb, #1FB36B 25%, transparent); }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 22px; border-radius: 999px;
+    font-weight: 600; text-decoration: none; border: 2px solid var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--fog); }
+  .btn.primary:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
+  .btn.ghost:hover { background: var(--paper); }
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:200,400,600&display=swap"
-        rel="stylesheet">
+  /* agent console */
+  .agent {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 20px;
+    min-height: 520px;
+    display: flex; flex-direction: column;
+  }
+  .agent header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .agent header img { width: 40px; height: 40px; border-radius: 50%; }
+  .agent header b { display: block; font-weight: 600; }
+  .agent header small { color: var(--muted); }
+  .log { flex: 1; overflow-y: auto; padding: 18px 2px; display: flex; flex-direction: column; gap: 14px; max-height: 440px; }
+  .msg { max-width: 92%; }
+  .msg.you { align-self: flex-end; background: var(--ink); color: var(--fog); padding: 10px 16px; border-radius: 18px 18px 4px 18px; }
+  .msg.bot p { margin: 0 0 8px; }
+  .tool {
+    display: inline-flex; gap: 8px; align-items: center;
+    font: 500 0.85rem/1 var(--body); color: var(--signal);
+    background: var(--signal-soft); padding: 7px 12px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .tool::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: currentColor; }
+  .tool.done::before { border-radius: 50%; }
+  .mini { display: grid; gap: 8px; margin-top: 4px; }
+  .mini a {
+    display: block; text-decoration: none; padding: 10px 14px;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--fog);
+  }
+  .mini a:hover { border-color: var(--signal); }
+  .mini a b { font-weight: 600; }
+  .mini a span { display: block; color: var(--muted); font-size: 0.92rem; }
+  .asks { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .asks button {
+    font: 500 0.95rem/1 var(--body); color: var(--ink); cursor: pointer;
+    background: transparent; border: 1.5px solid var(--line); border-radius: 999px; padding: 10px 14px;
+  }
+  .asks button:hover:not(:disabled) { border-color: var(--ink); }
+  .asks button:disabled { opacity: 0.45; cursor: default; }
+  .caret { display: inline-block; width: 8px; height: 1.1em; background: var(--signal); vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-    <!-- My CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  /* sections */
+  section.block { padding: 88px 0; border-top: 1px solid var(--line); }
+  h2 { font: 800 clamp(2.2rem, 5vw, 3.4rem)/1 var(--display); letter-spacing: -0.03em; margin: 0 0 14px; }
+  .sub { color: var(--muted); max-width: 56ch; margin: 0 0 48px; font-size: 1.1rem; }
 
-    <title>Andi - Home Portofolio</title>
+  /* timeline */
+  .years { display: grid; gap: 56px; }
+  .year { display: grid; grid-template-columns: 140px 1fr; gap: 24px; }
+  .year h3 { font: 800 2.4rem/1 var(--display); margin: 0; color: var(--muted); letter-spacing: -0.03em; position: sticky; top: 24px; align-self: start; }
+  .proj { list-style: none; margin: 0; padding: 0; }
+  .proj li { border-bottom: 1px solid var(--line); }
+  .proj li:first-child { border-top: 1px solid var(--line); }
+  .proj a {
+    display: grid; grid-template-columns: minmax(180px, 280px) 1fr auto; gap: 24px; align-items: baseline;
+    padding: 22px 4px; text-decoration: none;
+  }
+  .proj a:hover .name { color: var(--signal); }
+  .name { font: 600 1.35rem/1.2 var(--display); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .desc { color: var(--muted); max-width: 60ch; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .tag { font-size: 0.82rem; font-weight: 500; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); white-space: nowrap; }
+  .tag.hack { background: var(--marker); border-color: var(--marker); color: #1B1F3B; }
+
+  /* stack */
+  .stack { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .stack h3 { font: 600 1.05rem/1.3 var(--body); margin: 0 0 12px; }
+  .stack ul { list-style: none; margin: 0; padding: 0; color: var(--muted); }
+  .stack li { padding: 4px 0; }
+
+  /* contact */
+  .contact { padding: 110px 0 60px; border-top: 1px solid var(--line); }
+  .contact h2 { font-size: clamp(2.8rem, 8vw, 6rem); line-height: 0.95; max-width: 14ch; }
+  .contact .cta { margin-top: 36px; }
+  footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 40px 0; color: var(--muted); font-size: 0.95rem; border-top: 1px solid var(--line); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 24px; }
+    .agent { min-height: 460px; }
+    .stack { grid-template-columns: repeat(2, 1fr); }
+    .year { grid-template-columns: 1fr; gap: 12px; }
+    .year h3 { position: static; }
+    .proj a { grid-template-columns: 1fr; gap: 6px; }
+    .tags { justify-content: flex-start; margin-top: 6px; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    nav ul { gap: 16px; font-size: 0.95rem; }
+    .lede { font-size: 1.15rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .caret { animation: none; }
+  }
+</style>
 </head>
-
 <body>
+<div class="wrap">
+  <nav aria-label="Main">
+    <a class="mark" href="#top">andi<span>.</span></a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand text-white">
-                <img src="img/logo.png" class="img-fluid" alt="andi logo">
-                N D I
-            </a>
-            <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="my-nav" class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.htm">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">Tentang Saya</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="portofolio.html">Portofolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Kontak Saya</a>
-                    </li>
-                </ul>
-            </div>
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>Andi<span class="dot">.</span></h1>
+        <p class="lede">I build AI agents and the fullstack apps around them, from the first prompt to production.</p>
+        <ul class="facts">
+          <li><span class="avail"><strong>Available for freelance work</strong></span></li>
+          <li>TypeScript, Go and Python, on Google Cloud</li>
+          <li>Works remotely from Indonesia</li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" href="https://t.me/andidev30">Message me on Telegram</a>
+          <a class="btn ghost" href="https://github.com/andidev30">See my GitHub</a>
         </div>
-    </nav>
-    <!-- akhir navbar -->
+      </div>
 
-    <!-- banner atau carousel -->
-    <div id="my-carousel" class="carousel slide pt-5" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="container">
-                <div class="carousel-item active">
-                    <div class="row pt-5 justify-content-center">
-                        <div class="col-9 col-sm-4 col-md-6 col-lg-5">
-                            <h4 class="pt-5">Hai ! Saya Andi</h4>
-                            <h1 class="mb-4">WEB DEVELOPER</h1>
-                            <p class="mb-4">Saya seorang web developer menyukai tantangan dan senang berkolaborasi</p>
-                            <a href="about.html" class="btn btn-primary text-white">Kunjungi Profil Saya</a>
-                        </div>
-                        <div class="col-3 col-sm-5 sol-md-4 col-lg-4 d-none d-sm-block offset-1">
-                            <img src="img/Mask Group 1.png" alt="slide" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="agent" aria-label="Ask my portfolio agent">
+        <header>
+          <img src="https://avatars.githubusercontent.com/u/65272853?v=4" alt="" width="40" height="40" />
+          <div><b>andi-agent</b><small>Pick a question to ask it</small></div>
+        </header>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="asks" id="asks">
+          <button data-q="build">What do you build?</button>
+          <button data-q="hack">Show me hackathon work</button>
+          <button data-q="stack">What's your stack?</button>
+          <button data-q="hire">How do I hire you?</button>
         </div>
-        <!-- <a class="carousel-control-prev" href="#my-carousel" data-slide="prev" role="button">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#my-carousel" data-slide="next" role="button">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a> -->
+      </div>
     </div>
-    <!-- akhir banner atau carousel -->
 
-    <!-- skill -->
-    <section class="skill pt-5">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <h4 class="text-primary">Keahlian</h4>
-            </div>
-            <div class="row d-flex justify-content-beetween pt-3 skills-list">
-                <div class="col-2 m-0 p-0"></div>
-                <div class="col-4 m-0 p-0">
-                    <ul>
-                        <li>Adobe XD</li>
-                        <li>HTTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Bootstrap</li>
-                    </ul>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-4">
-                    <ul>
-                        <li>PHP</li>
-                        <li>Codeigniter</li>
-                        <li>Laravel</li>
-                        <li>Java</li>
-                        <li>MYSQL</li>
-                    </ul>
-                </div>
-                <div class="col-2"></div>
-            </div>
-        </div>
+    <section class="block" id="work">
+      <h2>Selected work</h2>
+      <p class="sub">Recent projects, newest first. Most of them are AI agents, developer tools and hackathon builds.</p>
+      <div class="years" id="years"></div>
     </section>
-    <!-- akhir skill -->
 
-    <!-- blog -->
-    <section class="blog">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h4><b>Blog Saya</b></h4>
-                </div>
-            </div>
-            <div class="row pt-4">
-                <div class="col-sm-3">
-                    <figure class="figure">
-                        <img class="figure-img img-fluid" src="img/b4.jpeg" alt="">
-                        <figcaption class="figure-caption">
-                            <div class="row">
-                                <div class="col pt-2">
-                                    <h4 class="text-center">Tutorial Bootstrap 1</h4>
-                                    <p class="p-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam
-                                        rem facere doloremque quasi dolore perferendis iste id fugiat,</p>
-                                    <a href="blog.html" class="btn btn-primary">Selengkapnya</a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-        </div>
+    <section class="block" id="stack">
+      <h2>What I work with</h2>
+      <p class="sub">The tools I use most in client and personal projects.</p>
+      <div class="stack">
+        <div><h3>Languages</h3><ul><li>TypeScript</li><li>JavaScript</li><li>Go</li><li>Python</li><li>PHP</li></ul></div>
+        <div><h3>Backend</h3><ul><li>Node.js</li><li>NestJS</li><li>Laravel</li><li>REST APIs</li></ul></div>
+        <div><h3>Frontend</h3><ul><li>React</li><li>Next.js</li><li>Tailwind CSS</li></ul></div>
+        <div><h3>AI and cloud</h3><ul><li>Mastra agents</li><li>Gemini</li><li>MCP servers</li><li>Google Cloud, Elastic</li></ul></div>
+      </div>
     </section>
-    <!-- akhir blog -->
 
+    <section class="contact" id="contact">
+      <h2>Have a project in mind? Let's build it.</h2>
+      <p class="sub">Tell me what you're working on and I'll get back to you.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://t.me/andidev30">Message me on Telegram</a>
+        <a class="btn ghost" href="https://github.com/andidev30">Follow on GitHub</a>
+      </div>
+    </section>
+  </main>
 
-    <!-- footer -->
-    <footer class="border-top p-5 bg-dark">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-1">
-                    <img src="img/logo.png" alt="logo">
-                </div>
-                <div class="col-7 text-right">
-                    <a href="https://facebook.com/andi300801" target="_BLANK">
-                        <img src="img/fb.png" alt="fb" class="pr-2">
-                    </a>
-                    <a href="https://https://www.instagram.com/andi_300801/" target="_BLANK">
-                        <img src="img/ig.png" class="img-fuid" width="34" height="auto" alt="ig" class="pr-2">
-                    </a>
-                    <a href="https://github.com/Andidev30" target="_BLANK">
-                        <img src="img/github.png" class="img-fuid" width="38" height="auto" alt="github">
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col mt-3 justify-content-between">
-                    <p>all rights reserved by andi copyright &copy; 2020 </p>
-                </div>
-                <!-- <div class="col-6">
-                    <nav class="nav text-uppercase justify-content-end">
-                        <a class="nav-link active" href="#">jobs</a>
-                        <a class="nav-link" href="#">developers</a>
-                        <a class="nav-link" href="#">terms</a>
-                        <a class="nav-link pr-0" href="#">privacy policy</a>
-                    </nav>
-                </div> -->
-            </div>
-        </div>
-    </footer>
-    <!-- akhir footer -->
+  <footer>
+    <span>© <span id="yr">2026</span> Andi</span>
+    <span>Hosted on GitHub Pages</span>
+  </footer>
+</div>
 
-    
+<script>
+const GH = "https://github.com/andidev30/";
+const projects = [
+  { y: 2026, n: "the-artifact", d: "Self-hostable hosting for the HTML pages coding agents publish over MCP. Your agent writes the page, you send the link.", t: ["TypeScript", "MCP"] },
+  { y: 2026, n: "ai-agent-with-otp-example", d: "A Mastra customer-care agent that verifies customers with an OTP before sharing account information.", t: ["Mastra", "AI agent"] },
+  { y: 2026, n: "clair-ai", d: "An AI technical interviewer for practising real interviews.", t: ["TypeScript", "AI"] },
+  { y: 2026, n: "Living-Story-Game-Engine", d: "Interactive narrative game engine with long-context, stateful storytelling on Gemini 3 Pro.", t: ["Gemini", "Game"] },
+  { y: 2025, n: "itungin", d: "Built for the Google BnB Marathon 2025.", t: ["Python"], hack: true },
+  { y: 2025, n: "nestjs-gcp-datastore-api", d: "NestJS template for connecting to GCP Datastore (Firestore in Datastore mode).", t: ["NestJS", "GCP"] },
+  { y: 2025, n: "aether", d: "Built for AI Accelerate: Unlocking New Frontiers, on Google Cloud and Elastic.", t: ["GCP", "Elastic"], hack: true },
+  { y: 2025, n: "runeclave", d: "Keeps API keys and credentials encrypted in one vault, so secrets never sit in a .env file again.", t: ["TypeScript", "Security"] },
+];
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/all.js"></script>
+// timeline
+const years = document.getElementById("years");
+[...new Set(projects.map(p => p.y))].forEach(y => {
+  const el = document.createElement("div");
+  el.className = "year";
+  el.innerHTML = `<h3>${y}</h3><ul class="proj">${projects.filter(p => p.y === y).map(p => `
+    <li><a href="${GH + p.n}">
+      <span class="name">${p.n}</span>
+      <span class="desc">${p.d}</span>
+      <span class="tags">${p.hack ? '<span class="tag hack">Hackathon</span>' : ""}${p.t.map(t => `<span class="tag">${t}</span>`).join("")}</span>
+    </a></li>`).join("")}</ul>`;
+  years.appendChild(el);
+});
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+// agent console
+const log = document.getElementById("log");
+const asks = document.getElementById("asks");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+const mini = list => `<div class="mini">${list.map(p => `<a href="${GH + p.n}"><b>${p.n}</b><span>${p.d}</span></a>`).join("")}</div>`;
+const pick = names => names.map(n => projects.find(p => p.n === n));
+
+const answers = {
+  build: {
+    q: "What do you build?",
+    tool: 'search_repos("ai agents")',
+    text: "Mostly AI agents and the apps around them: backends, dashboards and the tooling that gets them to production. A few recent ones:",
+    extra: () => mini(pick(["the-artifact", "ai-agent-with-otp-example", "clair-ai"])),
+  },
+  hack: {
+    q: "Show me hackathon work",
+    tool: 'search_repos("hackathon")',
+    text: "I use hackathons to try new things fast. Two builds from 2025:",
+    extra: () => mini(pick(["aether", "itungin"])),
+  },
+  stack: {
+    q: "What's your stack?",
+    tool: 'read_profile("stack")',
+    text: "TypeScript with Node.js and NestJS on the backend, React and Next.js on the front, Go and Python where they fit. For AI work I use Mastra, Gemini and MCP, deployed on Google Cloud.",
+  },
+  hire: {
+    q: "How do I hire you?",
+    tool: "get_contact()",
+    text: 'Send a message on <a href="https://t.me/andidev30">Telegram (@andidev30)</a> with a few lines about your project.',
+  },
+};
+
+function add(cls, html) {
+  const el = document.createElement("div");
+  el.className = "msg " + cls;
+  el.innerHTML = html;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+  return el;
+}
+
+async function typeInto(el, html) {
+  if (reduce) { el.innerHTML = html; return; }
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  const plain = tmp.textContent;
+  for (let i = 1; i <= plain.length; i += 2) {
+    el.textContent = plain.slice(0, i);
+    el.insertAdjacentHTML("beforeend", '<span class="caret"></span>');
+    log.scrollTop = log.scrollHeight;
+    await wait(14);
+  }
+  el.innerHTML = html;
+}
+
+let busy = false;
+async function ask(key) {
+  if (busy) return;
+  busy = true;
+  asks.querySelectorAll("button").forEach(b => b.disabled = true);
+  const a = answers[key];
+  add("you", a.q);
+  await wait(350);
+  const bot = add("bot", `<div class="tool">${a.tool}</div>`);
+  await wait(700);
+  bot.querySelector(".tool").classList.add("done");
+  const p = document.createElement("p");
+  bot.appendChild(p);
+  await typeInto(p, a.text);
+  if (a.extra) { bot.insertAdjacentHTML("beforeend", a.extra()); log.scrollTop = log.scrollHeight; }
+  asks.querySelectorAll("button").forEach(b => b.disabled = false);
+  busy = false;
+}
+
+asks.addEventListener("click", e => { const b = e.target.closest("button"); if (b) ask(b.dataset.q); });
+
+// greeting
+(async () => {
+  busy = true;
+  asks.querySelectorAll("button").forEach(b => b.disabled = true);
+  const bot = add("bot", "<p></p>");
+  await typeInto(bot.querySelector("p"), "Hi, I'm Andi's portfolio agent. Pick a question below and I'll answer from the projects on this page.");
+  asks.querySelectorAll("button").forEach(b => b.disabled = false);
+  busy = false;
+})();
+</script>
 </body>
 </html>
